@@ -1,16 +1,23 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import User from "../models/User";
-import { where } from "sequelize";
 
-
+//Para metodo GET
 export const mostrarRegistro = (req: Request, res: Response) => {
   const error = req.session.error;
   req.session.error = undefined;
   return res.render("registro",{session:{error}});
-};
+}
 
+export const mostrarLogin = (req: Request, res: Response) => {
+  const error = req.session.error;
+  const success = req.session.success;
+  req.session.error = undefined;
+  req.session.success = undefined;
+  return res.render("login",{session:{error,success}});
+}
 
+//Para metodo POST
 export const submitRegistro = async (req: Request, res: Response) => {
     const username = req.body.username.trim();
     const password = req.body.password.trim();
@@ -35,10 +42,12 @@ export const submitRegistro = async (req: Request, res: Response) => {
       // Hashear la contraseña y crear usuario
       const hashedPassword = await bcrypt.hash(password, 10);
       await User.create({username:username,password:hashedPassword});
+      req.session.success = "Registrado! Puedes iniciar sesión!";
+      return res.redirect('/login');
 
     } catch (error) {
       req.session.error = 'Error al crear cuenta';
       return res.redirect('/registro');
     }
-    return res.send('listo');
+    
 };
