@@ -1,0 +1,36 @@
+<%- include('layouts/header') %>
+
+<div class="container mt-4">
+
+  <div class="row">
+    <div class="col-12 col-md-4 mx-auto mt-4">
+      <% if(session.error){ %>
+        <div class="alert alert-dismissible alert-danger fade show" role="alert">
+          <%= session.error %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+      <% if(session.success){ %>
+        <div class="alert alert-dismissible alert-success fade show" role="alert">
+          <%= session.success %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+      <form method="post" class="bg-primary p-3">
+        <legend class="text-center">Carga Tuits</legend>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label text-uppercase text-white"
+            >Tuits</label
+          >
+          <textarea name="tuit" id="tuit">
+
+          </textarea>
+          
+        </div>
+        
+        <button type="submit" class="btn btn-light text-uppercase d-flex mx-auto">Tuitear</button>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('layouts/footer') %>
