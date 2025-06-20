@@ -51,3 +51,35 @@ export const submitRegistro = async (req: Request, res: Response) => {
     }
     
 };
+
+export const submitLogin = async (req:Request, res:Response) =>{
+  const username = req.body.username.trim();
+  const password = req.body.password.trim();
+
+  if(username === ''  || password === ''){
+    req.session.error = "Debe completar ambos campos";
+    return res.redirect('/login');
+  }
+  try {
+    //comprobar si el usuario existe y si el password es correcto
+    const existeUsuario = await User.findOne({where:{username}})
+    if(!existeUsuario){
+      req.session.error = "Usuario no registrado";
+      return res.redirect('/login');
+    }
+    const passwordValido = await bcrypt.compare(password, existeUsuario.password);
+
+    if (!passwordValido) {
+      req.session.error = "Password incorrecto";
+      return res.redirect('/login');
+    }
+    //Todo correcto
+    req.session.userId = existeUsuario.id;
+    req.session.userName = existeUsuario.username;
+    return res.redirect('/tareas');
+
+  } catch (error) {
+    req.session.error = "Error al intentar login";
+    return res.redirect('/login');
+  }
+}
