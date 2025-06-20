@@ -2,7 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import path from 'path';
 import dotenv from 'dotenv';
-import { mostrarRegistro } from './controllers/authController';
+import { mostrarRegistro,submitRegistro } from './controllers/authController';
 
 
 dotenv.config();
@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Ruta de registro
 app.get('/registro',mostrarRegistro);
+app.post('/registro',submitRegistro);
 
 // Iniciar servidor
 app.listen(PORT, () => {
