@@ -54,6 +54,11 @@ app.post('/login',submitLogin);
 //Ruta tuits
 app.get('/tuits',mostrarTuitsUsuario);
 
+//ruta logout
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => res.redirect('/login'));
+});
+
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
