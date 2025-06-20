@@ -3,7 +3,7 @@
 <div class="container mt-4">
 
   <div class="row">
-    <div class="col-12 col-md-4 mx-auto mt-4">
+    <div class="col-12 col-md-6 mx-auto mt-4">
       <% if(session.error){ %>
         <div class="alert alert-dismissible alert-danger fade show" role="alert">
           <%= session.error %>
@@ -17,12 +17,10 @@
         </div>
       <% } %>
       <form method="post" class="bg-primary p-3">
-        <legend class="text-center">Carga Tuits</legend>
+        <legend class="text-center">Carga un nuevo Tuit</legend>
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label text-uppercase text-white"
-            >Tuits</label
-          >
-          <textarea name="tuit" id="tuit">
+         
+          <textarea class="form-control" name="tuit" id="tuit" rows="3">
 
           </textarea>
           
@@ -30,6 +28,10 @@
         
         <button type="submit" class="btn btn-light text-uppercase d-flex mx-auto">Tuitear</button>
       </form>
+    </div>
+
+    <div class="col-12 col-md-6 mx-auto mt-4">
+
     </div>
   </div>
 </div>
