@@ -13,24 +13,36 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
+      
+            <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home
-          </a>
+          <a class="nav-link" href="/">Home</a>
         </li>
+        
+        <% if (session.userId) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/tuits">Mis Tuits</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout (<%= session.userName %>)</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/registro">Registrar</a>
+          </li>
+        <% } %>
+
         <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link" href="/about">About</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Registrar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-       
       </ul>
       
     </div>
   </div>
 </nav>
+<!-- DEBUG -->
+<pre><%= JSON.stringify(session, null, 2) %></pre>
 <body>

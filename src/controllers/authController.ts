@@ -1,12 +1,15 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import User from "../models/User";
+import session from "express-session";
 
 //Para metodo GET
 export const mostrarRegistro = (req: Request, res: Response) => {
   const error = req.session.error;
   req.session.error = undefined;
+  
   return res.render("registro",{session:{error}});
+
 }
 
 export const mostrarLogin = (req: Request, res: Response) => {
@@ -14,7 +17,9 @@ export const mostrarLogin = (req: Request, res: Response) => {
   const success = req.session.success;
   req.session.error = undefined;
   req.session.success = undefined;
+
   return res.render("login",{session:{error,success}});
+
 }
 
 //Para metodo POST
@@ -76,6 +81,7 @@ export const submitLogin = async (req:Request, res:Response) =>{
     //Todo correcto
     req.session.userId = existeUsuario.id;
     req.session.userName = existeUsuario.username;
+    console.log('Sesión seteada:', req.session);
     return res.redirect('/tuits');
 
   } catch (error) {

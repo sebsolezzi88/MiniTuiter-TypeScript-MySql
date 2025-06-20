@@ -12,6 +12,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Para parsear formularios
+app.use(express.urlencoded({ extended: false }));
+
+
 // Configuración sesión
 app.use(session({
   secret: process.env.SESSION_SECRET || 'secreto',
@@ -19,8 +23,11 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-// Para parsear formularios
-app.use(express.urlencoded({ extended: false }));
+//Midelware para variables session global
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
 
 // Motor de vistas
 app.set('views', path.join(__dirname, 'views'));
@@ -29,9 +36,10 @@ app.set('view engine', 'ejs');
 // Carpeta pública
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // Ruta de prueba
  app.get('/', (req, res) => {
-  res.render('index', { session: req.session });
+  res.render('index');
 });
 
 
