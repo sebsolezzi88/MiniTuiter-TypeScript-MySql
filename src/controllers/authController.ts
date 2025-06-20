@@ -76,7 +76,7 @@ export const submitLogin = async (req:Request, res:Response) =>{
     //Todo correcto
     req.session.userId = existeUsuario.id;
     req.session.userName = existeUsuario.username;
-    return res.redirect('/tareas');
+    return res.redirect('/tuits');
 
   } catch (error) {
     req.session.error = "Error al intentar login";
