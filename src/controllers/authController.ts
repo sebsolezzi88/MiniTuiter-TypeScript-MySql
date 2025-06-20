@@ -5,5 +5,10 @@ export const mostrarRegistro = (req: Request, res: Response) => {
 };
 
 export const submitRegistro = (req: Request, res: Response) => {
-    return res.send('listo')
+    const username = req.body.username;
+    const password = req.body.password;
+    const passwordr = req.body.passwordr;
+
+    console.log(username, password,passwordr);
+    return res.send('lis');
 };

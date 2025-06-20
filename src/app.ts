@@ -2,6 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import path from 'path';
 import dotenv from 'dotenv';
+
 import { mostrarRegistro,submitRegistro } from './controllers/authController';
 
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  app.get('/', (req, res) => {
   res.render('index', { session: req.session });
 });
+
 
 //Ruta de registro
 app.get('/registro',mostrarRegistro);
