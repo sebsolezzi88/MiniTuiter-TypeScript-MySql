@@ -4,7 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 import { mostrarLogin, mostrarRegistro,submitLogin,submitRegistro } from './controllers/authController';
-import {mostrarTuitsUsuario} from './controllers/tuitsControllers';
+import {mostrarTuitsUsuario,submitTuit} from './controllers/tuitsControllers';
 import { protegerRuta } from './middlewares/middelwares';
 
 
@@ -55,6 +55,7 @@ app.post('/login',submitLogin);
 
 //Ruta tuits
 app.get('/tuits',protegerRuta,mostrarTuitsUsuario);
+app.post('/tuits',protegerRuta,submitTuit);
 
 //ruta logout
 app.get('/logout', (req, res) => {
