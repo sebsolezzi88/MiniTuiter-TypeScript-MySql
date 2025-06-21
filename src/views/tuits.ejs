@@ -31,7 +31,31 @@
     </div>
 
     <div class="col-12 col-md-6 mx-auto mt-4">
-      <p>Aca ser verian los tuits</p>
+     
+      <% if (tuits && tuits.length > 0) { %>
+          <ul class="list-group">
+      <% tuits.forEach(tuit => { %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong><%= tuit.contenido %></strong><br>
+          <small class="text-muted">Publicado el <%= new Date(tuit.createdAt).toLocaleString() %></small>
+        </div>
+        <div>
+          <!-- Botón Editar: va a /tuits/editar/:id con método GET -->
+          <a href="/tuits/editar/<%= tuit.id %>" class="btn btn-sm text-uppercase btn-warning me-2">Editar</a>
+
+          <!-- Botón Eliminar: formulario con método POST a /tuits/eliminar/:id -->
+          <form action="/tuits/eliminar/<%= tuit.id %>" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-sm btn-danger text-uppercase" onclick="return confirm('¿Seguro que querés eliminar este tuit?');">Eliminar</button>
+          </form>
+        </div>
+      </li>
+    <% }); %>
+  </ul>
+    <% } else { %>
+      <p class="text-uppercase p-2 bg-light text-center">No hay tuits publicados aún</p>
+    <% } %>
+
     </div>
   </div>
 </div>

@@ -15,8 +15,7 @@ export const mostrarTuitsUsuario = async (req: Request, res: Response) => {
   const tuits = await Tuit.findAll({where:{userId:req.session.userId}})
 
   //return res.render("tuits",{session:{success,error}});
-  return res.render("tuits", {session: {...req.session,error,success,tuits}
-});
+  return res.render("tuits", {session: {...req.session,error,success},tuits});
 
 }
 
