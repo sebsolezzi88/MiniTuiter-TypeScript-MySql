@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/db';
+import Tuit from './Tuit';
 
 class User extends Model {
   public id!: number;
@@ -27,5 +28,10 @@ User.init({
   tableName: 'users',
   timestamps: false,
 });
+
+// 1 Usuario tiene muchos tuits
+User.hasMany(Tuit, { foreignKey: 'userId', as: 'tuits' });
+// Cada tuit pertenece a un usuario
+Tuit.belongsTo(User, { foreignKey: 'userId', as: 'usuario' });
 
 export default User;
