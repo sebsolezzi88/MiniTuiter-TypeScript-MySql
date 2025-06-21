@@ -9,7 +9,7 @@ interface TuitAttributes {
 }
 
 // No incluimos createdAt como opcional
-interface TuitCreationAttributes extends Optional<TuitAttributes, 'id'> {}
+interface TuitCreationAttributes extends Optional<TuitAttributes, 'id' | 'createdAt'> {}
 
 class Tuit extends Model<TuitAttributes, TuitCreationAttributes> implements TuitAttributes {
   public id!: number;
@@ -41,7 +41,8 @@ Tuit.init({
   sequelize,
   modelName: 'Tuit',
   tableName: 'tuits',
-  updatedAt: false, // opcional si no querés updatedAt
+  timestamps: true,
+  updatedAt: false,
 });
 
 export default Tuit;
