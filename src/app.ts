@@ -4,7 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 import { mostrarLogin, mostrarRegistro,submitLogin,submitRegistro } from './controllers/authController';
-import {eliminarTuit, mostrarTuitsUsuario,submitTuit, verEditarTuit} from './controllers/tuitsControllers';
+import {eliminarTuit, mostrarTuitsUsuario,submitEditarTuit,submitTuit, verEditarTuit} from './controllers/tuitsControllers';
 import { protegerRuta } from './middlewares/middelwares';
 
 
@@ -58,7 +58,7 @@ app.get('/tuits',protegerRuta,mostrarTuitsUsuario);
 app.post('/tuits',protegerRuta,submitTuit);
 app.post('/tuits/eliminar/:id',protegerRuta,eliminarTuit);
 app.get('/tuits/editar/:id',protegerRuta,verEditarTuit);
-
+app.post('/tuits/editar/:id',protegerRuta,submitEditarTuit);
 
 //TODO: Crear la ruta get y post para editar tuits
 //TODO: Crear un controller para listar los tuits por fecha en la pagina principal

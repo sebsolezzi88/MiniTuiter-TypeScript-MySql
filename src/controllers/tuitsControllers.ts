@@ -93,20 +93,31 @@ export const verEditarTuit = async (req:Request, res:Response)=>{
 
 export const submitEditarTuit = async (req:Request, res:Response)=>{
   const idTuit = req.params.id;
-  const userId = req.session.userId;
   const error = req.session.error;
-  const success = req.session.success; 
+  const tuitEditadoForm = req.body.tuitEditadoForm;
+
   req.session.error = undefined;
-  req.session.success = undefined;
+
+    if(tuitEditadoForm === ''){
+
+      return res.redirect(`/tuits/editar/${idTuit}`);
+    }
 
   try {
-    //obtener el tuits del usuario si los hay para editar
+    
+    //obtener el tuit del usuario si los hay para editar
     const tuit = await Tuit.findOne({where:{id:idTuit, userId:req.session.userId}})
     if(!tuit){
       req.session.error = "Tuit no encontrado o no autorizado";
       return res.redirect('/tuits');
     }
-    return res.render("editar", {session: {...req.session,error,success},tuit});
+    
+    // Actualizar el contenido del tuit y guardar
+    tuit.contenido = tuitEditadoForm;
+    await tuit.save();
+    req.session.success= 'Tuit editado Correctamente';
+    
+    return res.redirect('/tuits');
   } catch (error) {
       req.session.error = "Error al editar";
       return res.redirect('/tuits');
