@@ -43,3 +43,27 @@ try {
   }
   
 }
+
+export const eliminarTuit = async (req:Request, res:Response)=>{
+  const idTuit = req.params.id;
+  const userId = req.session.userId;
+  
+  try {
+    const existeTuit = await Tuit.findOne({where:{id:idTuit,userId:userId}});
+    
+    if(!existeTuit){
+      req.session.error = "Tuit no encontrado o no autorizado";
+      return res.redirect('/tuits');
+    }
+
+    await existeTuit.destroy();
+    req.session.success = "Tuit Borrado";
+    return res.redirect('/tuits');
+
+  } catch (error) {
+    req.session.error = "Error al borrar";
+    return res.redirect('/tuits');
+  }
+  
+
+}
