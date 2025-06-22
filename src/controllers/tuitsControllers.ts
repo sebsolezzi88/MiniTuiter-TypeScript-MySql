@@ -69,6 +69,8 @@ export const eliminarTuit = async (req:Request, res:Response)=>{
 }
 
 export const verEditarTuit = async (req:Request, res:Response)=>{
+  const idTuit = req.params.id;
+  const userId = req.session.userId;
   const error = req.session.error;
   const success = req.session.success; 
   req.session.error = undefined;
@@ -76,7 +78,7 @@ export const verEditarTuit = async (req:Request, res:Response)=>{
 
   try {
     //obtener el tuits del usuario si los hay para editar
-    const tuit = await Tuit.findOne({where:{userId:req.session.userId}})
+    const tuit = await Tuit.findOne({where:{id:idTuit,userId:userId}});
     if(!tuit){
       req.session.error = "Tuit no encontrado o no autorizado";
       return res.redirect('/tuits');
@@ -86,8 +88,28 @@ export const verEditarTuit = async (req:Request, res:Response)=>{
       req.session.error = "Error al editar";
       return res.redirect('/tuits');
   }
-
   
+}
 
+export const submitEditarTuit = async (req:Request, res:Response)=>{
+  const idTuit = req.params.id;
+  const userId = req.session.userId;
+  const error = req.session.error;
+  const success = req.session.success; 
+  req.session.error = undefined;
+  req.session.success = undefined;
+
+  try {
+    //obtener el tuits del usuario si los hay para editar
+    const tuit = await Tuit.findOne({where:{id:idTuit, userId:req.session.userId}})
+    if(!tuit){
+      req.session.error = "Tuit no encontrado o no autorizado";
+      return res.redirect('/tuits');
+    }
+    return res.render("editar", {session: {...req.session,error,success},tuit});
+  } catch (error) {
+      req.session.error = "Error al editar";
+      return res.redirect('/tuits');
+  }
   
 }

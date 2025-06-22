@@ -59,6 +59,7 @@ app.post('/tuits',protegerRuta,submitTuit);
 app.post('/tuits/eliminar/:id',protegerRuta,eliminarTuit);
 app.get('/tuits/editar/:id',protegerRuta,verEditarTuit);
 
+
 //TODO: Crear la ruta get y post para editar tuits
 //TODO: Crear un controller para listar los tuits por fecha en la pagina principal
 
