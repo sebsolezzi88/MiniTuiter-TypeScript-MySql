@@ -72,9 +72,8 @@ export const verEditarTuit = async (req:Request, res:Response)=>{
   const idTuit = req.params.id;
   const userId = req.session.userId;
   const error = req.session.error;
-  const success = req.session.success; 
   req.session.error = undefined;
-  req.session.success = undefined;
+
 
   try {
     //obtener el tuits del usuario si los hay para editar
@@ -83,7 +82,7 @@ export const verEditarTuit = async (req:Request, res:Response)=>{
       req.session.error = "Tuit no encontrado o no autorizado";
       return res.redirect('/tuits');
     }
-    return res.render("editar", {session: {...req.session,error,success},tuit});
+    return res.render("editar", {session: {...req.session,error},tuit});
   } catch (error) {
       req.session.error = "Error al editar";
       return res.redirect('/tuits');
@@ -99,7 +98,7 @@ export const submitEditarTuit = async (req:Request, res:Response)=>{
   req.session.error = undefined;
 
     if(tuitEditadoForm === ''){
-
+      req.session.error = 'El contenido del tuit no puede estar vacío';
       return res.redirect(`/tuits/editar/${idTuit}`);
     }
 
@@ -116,7 +115,7 @@ export const submitEditarTuit = async (req:Request, res:Response)=>{
     tuit.contenido = tuitEditadoForm;
     await tuit.save();
     req.session.success= 'Tuit editado Correctamente';
-    
+
     return res.redirect('/tuits');
   } catch (error) {
       req.session.error = "Error al editar";
