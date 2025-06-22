@@ -67,3 +67,7 @@ export const eliminarTuit = async (req:Request, res:Response)=>{
   
 
 }
+
+export const verEditarTuit = async (req:Request, res:Response)=>{
+
+}
