@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import { mostrarLogin, mostrarRegistro,submitLogin,submitRegistro } from './controllers/authController';
 import {eliminarTuit, mostrarTuitsUsuario,submitEditarTuit,submitTuit, verEditarTuit} from './controllers/tuitsControllers';
 import { protegerRuta } from './middlewares/middelwares';
-import { obtenerTodosLosTuits } from './controllers/mainController';
+import { mostrarAbout, obtenerTodosLosTuits } from './controllers/mainController';
 
 
 
@@ -42,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Ruta de index
  app.get('/', obtenerTodosLosTuits);
+ app.get('/about',mostrarAbout);
 
 
 //Ruta de registro
@@ -59,8 +60,6 @@ app.post('/tuits/eliminar/:id',protegerRuta,eliminarTuit);
 app.get('/tuits/editar/:id',protegerRuta,verEditarTuit);
 app.post('/tuits/editar/:id',protegerRuta,submitEditarTuit);
 
-
-//TODO: Crear un controller para listar los tuits por fecha en la pagina principal
 
 //ruta logout
 app.get('/logout', (req, res) => {

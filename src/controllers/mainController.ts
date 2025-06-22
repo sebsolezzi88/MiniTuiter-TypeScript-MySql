@@ -24,3 +24,7 @@ export const obtenerTodosLosTuits = async (req:Request,res:Response) =>{
     }
     
 }
+
+export const mostrarAbout = async (req:Request,res:Response) =>{
+    return res.render('about');
+}
