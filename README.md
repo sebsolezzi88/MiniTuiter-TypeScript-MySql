@@ -2,6 +2,7 @@
 
 Este proyecto es una aplicación web para imitiar un pequeño tuiter
 
+![paginaprincipal](https://i.imgur.com/2huoi0e.png)
 
 
 ## Tecnologías Utilizadas 🖥️
@@ -19,6 +20,7 @@ Este proyecto es una aplicación web para imitiar un pequeño tuiter
 - Registro e inicio de sesión de usuarios.
 - Autenticación de sesiones con protección de rutas.
 - CRUD completo de los Tuits:
+  - Listado de todos los tuits en la homepage
   - Crear nuevo tuit
   - Editar tuit existente
   - Eliminar tuit
